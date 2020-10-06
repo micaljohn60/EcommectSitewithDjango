@@ -1,0 +1,55 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+
+<div class="table-responsive text-nowrap">
+
+    <table class="table">
+      <thead>
+        <tr>
+          
+          <th scope="col">Invoice No</th>
+          <th scope="col">Customer Name</th>
+          <th scope="col">Quantity</th>          
+          <th scope="col">Total</th>
+          <th scope="col">Payment Opition</th>
+          <th scope="col">Status</th>
+          <th scope="col"></th>         
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+          <tr>  
+              <td>
+                {{order.ref_code}}
+              </td>  
+
+              <td>
+                {{order.user}}
+              </td>  
+
+              <td>
+                {{order.get_item_total}}
+              </td> 
+
+              <td>
+               $ {{order.get_total}}
+              </td> 
+                
+              <td> 
+                  {{order.payment.payment_opition}}       
+              </td>                    
+              <td>Pending</td>  
+
+              <td>
+                <a href="{% url 'myadmin:pendingdetail' slug=order.ref_code %}">
+                View Detail
+                </a>
+              </td>                   
+          </tr>          
+          {% endfor %}
+      </tbody>
+    </table>  
+  </div>
+{% endblock content %}
+    

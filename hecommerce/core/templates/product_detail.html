@@ -1,0 +1,89 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+ 
+<div class="row wow fadeIn mt-3">
+
+    <!--Grid column-->
+    <div class="col-md-6 mt-2">
+
+      <img src="{{object.image.url}}" class="img-fluid" alt="">
+
+    </div>
+    <!--Grid column-->
+
+    <!--Grid column-->
+    <div class="col-md-6 mt-2">
+
+      <!--Content-->
+      <div class="p-4">
+
+        <div class="mb-3">
+          <a href="">
+            <span class="badge purple mr-1">{{object.get_category_display}}</span>
+          </a>
+          <a href="">
+            <span class="badge blue mr-1">New</span>
+          </a>
+          <a href="">
+            <span class="badge red mr-1">Bestseller</span>
+          </a>
+        </div>
+
+        <p class="lead">
+          <span class="mr-1">
+            <del>$200</del>
+          </span>
+          <span>${{object.price}}</span>
+        </p>
+
+        <p class="lead font-weight-bold">Description</p>
+
+        <p>{{object.description}}</p>        
+        
+          <!-- Default input -->
+         <a href="{{object.get_add_to_cart_url}}">
+          <button class="btn btn-primary btn-md my-0 p" type="submit">Add to cart
+            <i class="fas fa-shopping-cart ml-1"></i>
+          </button>          
+          </a>
+
+     
+         
+      </div>
+      <!--Content-->
+
+    </div>
+    <!--Grid column-->
+
+  </div>
+  
+        <!--Grid row-->
+        <div class="row d-flex justify-content-center wow fadeIn mt-1 mb-2">
+
+          <!--Grid column-->
+          <div class="col-md-6 text-center">
+  
+            <h4 class="my-4 h4">Related Items</h4>
+  
+          </div>
+          <!--Grid column-->
+  
+        </div>
+        <!--Grid row-->
+  
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+  
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-12 mb-4">
+  
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="">
+  
+          </div>
+          <!--Grid column-->
+  
+        </div>
+        <!--Grid row-->
+   
+{% endblock %}

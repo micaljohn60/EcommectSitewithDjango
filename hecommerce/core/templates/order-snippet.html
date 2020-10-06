@@ -1,0 +1,122 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+
+    <h1>Order snippit</h1>
+    <!-- Pills navs -->
+<ul class="nav nav-pills mb-3" id="ex1" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link active"
+        id="ex1-tab-1"
+        data-toggle="pill"
+        href="#ex1-pills-1"
+        role="tab"
+        aria-controls="ex1-pills-1"
+        aria-selected="true"
+        >Pending Order</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="ex1-tab-2"
+        data-toggle="pill"
+        href="#ex1-pills-2"
+        role="tab"
+        aria-controls="ex1-pills-2"
+        aria-selected="false"
+        >My Ordered</a
+      >
+    </li>
+
+  </ul>
+  <!-- Pills navs -->
+  
+  <!-- Pills content -->
+  <div class="tab-content" id="ex1-content">
+    <div
+      class="tab-pane fade show active"
+      id="ex1-pills-1"
+      role="tabpanel"
+      aria-labelledby="ex1-tab-1"
+    >      
+
+
+    <div class="table-responsive text-nowrap">
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Invoice No</th>
+            <th scope="col">Total Item</th>
+            <th scope="col">Total Amount</th>
+            <th scope="col">Pending Status</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for object in objects %}
+          <tr>            
+            <th>  
+                <td>
+                  {{object.ref_code}}
+                </td>       
+                           
+                  <td>{{object.get_item_total}}</td>
+                  <td>{{object.get_total}}</td>
+                  <td>{{object.pending}}</td>
+                
+            </th>            
+          </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+    
+    </div> 
+          
+    </div>
+    <div class="tab-pane fade" id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+      
+      
+     
+      <div class="table-responsive text-nowrap">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Invoice No</th>
+              <th scope="col">Total Item</th>
+              <th scope="col">Total Amount</th>
+              <th scope="col">View Detail</th>
+  
+            </tr>
+          </thead>
+          <tbody>
+            {% for object in objects1 %}
+            <tr>            
+              <th>  
+                  <td>
+                    {{object.ref_code}}
+                  </td>       
+                              
+                    <td>{{object.get_item_total}}</td>
+                    <td>{{object.get_total}}</td>
+                    <td><a href="{% url 'core:vieworderedlists'  slug=object.ref_code %}">view detail</a></td>
+                  
+              </th>            
+            </tr>
+            {% endfor %}
+            
+          </tbody>
+        </table>
+      
+      </div>    
+    </div>
+  
+  </div>
+  <!-- Pills content -->
+{% endblock content %}

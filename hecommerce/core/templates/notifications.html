@@ -1,0 +1,25 @@
+{% extends 'base_layout.html' %}
+
+
+{% block content %}
+    <div class="mt-3">
+
+    {% for noti in notis %}    
+        {% if noti.success_fail == True %}
+
+        <div class="alert alert-primary" role="alert">
+            {{noti.notification_title}}
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-danger" role="alert">
+            {{noti.notification_title}}
+        </div>
+
+        {% endif %}
+   {% endfor %}
+    </div>
+    
+{% endblock content %}
+    

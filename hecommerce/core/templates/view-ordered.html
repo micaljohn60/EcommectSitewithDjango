@@ -1,0 +1,56 @@
+{% extends 'base_layout.html' %}
+
+
+{% block content %}
+    <h1>Your Ordered Items Lists</h1>
+    
+      
+      {% for my_order in order %}
+      <button type="button" class="btn btn-primary">{{my_order.ref_code}}</button>
+      
+      {% endfor %}
+        <div class="table-responsive text-nowrap">  
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Total Item</th>
+                <th scope="col">Total Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+                
+                
+              {% for my_order in order %}
+              
+              {% for order_item in my_order.items.all %}
+              <tr>            
+                <th scope="row">  
+                    
+                  <td>{{order_item.item.title}}</td>
+                  <td>{{order_item.get_total_item}}</td>
+                  <td>{{order_item.item.price}}</td>
+                    
+                </th>            
+              </tr>
+              {% endfor %}
+             
+              {% endfor %}
+
+              <tr>
+                {% for my_order in order %}
+                <td colspan="3"><b>Order Total</b></td>
+                <td><b>${{ my_order.get_total }}</b></td>
+                
+                {% endfor %}
+                
+              </tr>
+              
+            </tbody>
+          </table>
+        
+        </div>     
+
+{% endblock content %}
+    

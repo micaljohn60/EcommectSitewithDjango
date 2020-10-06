@@ -1,0 +1,8 @@
+<h1>Log In</h1>
+
+<form action="{% url 'account:log_in' %}" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Log In">
+
+</form>

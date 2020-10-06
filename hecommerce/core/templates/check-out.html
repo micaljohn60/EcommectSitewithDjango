@@ -1,0 +1,85 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="container wow fadeIn">
+    {% if address.exists %}
+    <h2 class="my-5 h2 text-center">Billing State</h2>
+
+    <div class="row">
+      <div class="col-md-8 mb-3">
+        <div class="alert alert-primary" role="alert">
+          Item will be delivered to 
+          <a href="#" class="alert-link"> 
+              {% for addr in address  %}
+                {{addr.street_address}} |
+                {{addr.apartment_address}} |
+                {{addr.cities_state}} |
+              {% endfor %}
+            
+          </a>.
+        </div>
+        <div class="card mb-5">
+          <form action="{% url 'core:check-out' %}" method="POST" class="card-body" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-lg-4 col-md-6 mb-4">
+              <label for="state">Choose Payment Method</label>
+              {{payment_form.payment_opition}}
+              <div class="invalid-feedback">
+                Please provide a valid state.
+              </div>
+            </div>
+          
+              <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupFileAddon01">Payment Photo Upload</span>
+                  </div>
+                  <div class="custom-file">
+                    {{payment_form.file}}
+                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                  </div>
+              </div>
+              <hr class="mb-4">
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Check Out</button>
+          </form>
+      </div>
+      </div>
+    </div>    
+
+      {% else %}
+     
+        <h2 class="my-5 h2 text-center">Add Address</h2>
+        <div class="row">
+          <div class="col-md-8 mb-4">
+            <div class="card">
+              <form action="{% url 'core:check-out' %}" method="POST" class="card-body">
+                {% csrf_token %}
+                <!--address-->
+                <div class="md-form mb-5">
+                  {{address_form.address}}     
+                  <label for="address" class="">Address</label>       
+                </div>
+                <div class="md-form mb-5">
+                  {{address_form.address_2}}      
+                  <label for="address-2" class="">Address 2 (optional)</label>      
+                </div>
+                <div class="row">
+                  <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="state"> City or State</label>
+                    {{address_form.cities_state}}
+                  </div>
+                </div>
+
+                <hr class="mb-4">
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Add address & Continue</button>
+
+
+              </form>
+            </div>
+          </div>
+        </div>
+      
+    {% endif %}
+  </div>
+      
+{% endblock content %}
+    
