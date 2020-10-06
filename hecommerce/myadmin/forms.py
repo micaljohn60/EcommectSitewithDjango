@@ -27,6 +27,15 @@ class UploadProductForm(forms.Form):
             'id':"price"
         }
         ), required=True)
+
+    product_quantity = forms.IntegerField( widget=forms.NumberInput(
+        attrs={
+            'class' : 'form-control',
+            'placeholder': "Quantity : eg : 30",
+            'id':"quantity"
+        }
+    )
+    )
     category = forms.ChoiceField(
         widget=forms.Select(
                  attrs ={
@@ -42,15 +51,15 @@ class UploadProductForm(forms.Form):
     slug = forms.CharField( widget=forms.TextInput(
         attrs= {
             'class':"form-control",
-            'placeholder': "Product Title Here",
-            'id':"Slug"
+            'placeholder': "Slug Here",
+            'id':"slug"
         }
         ), required=True)
     description = forms.CharField( widget=forms.Textarea(
         attrs= {
             'class':"form-control",
-            'placeholder': "Product Title Here",
-            'id':"Product Description Here"
+            'placeholder': "Product Description Here",
+            'id':"product_description"
         }
         ), required=True)
     image = forms.ImageField(

@@ -21,6 +21,7 @@ class Item(models.Model):
     price = models.FloatField()
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
     label = models.CharField(choices=LABEL_CHOICES, max_length=1)
+    product_quantity = models.IntegerField(null=False,blank=False,default=0)
     slug = models.SlugField()
     description = models.TextField()
     image = models.ImageField()

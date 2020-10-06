@@ -39,7 +39,7 @@ class Order_Summary(View):
             return redirect("/")
 
 def add_to_cart(request, slug):   
-    item = get_object_or_404(Item,slug=slug)    
+    item = Item.objects.get(slug=slug)    
     order_item, created = OrderItem.objects.get_or_create(
         item=item,
         user=request.user,
@@ -51,11 +51,15 @@ def add_to_cart(request, slug):
         order = order_qs[0]
         # check if the order item is in the order
         if order.items.filter(item__slug=item.slug).exists():
-            order_item.quantity += 1           
+            order_item.quantity += 1      
+            item.product_quantity -= 1
+            item.save()              
             order_item.save()
             messages.info(request, "This item quantity was updated.")
             return redirect("core:order-summary")
-        else:            
+        else:  
+            item.product_quantity -= 1
+            item.save()          
             order.items.add(order_item)
             messages.info(request, "This item was added to your cart.")
             return redirect("core:order-summary")
@@ -82,6 +86,8 @@ def remove_from_cart(request, slug):
                 user=request.user,
                 ordered=False
             )[0]
+            item.product_quantity += order_item.quantity
+            item.save()
             order.items.remove(order_item)
             order_item.delete()
             messages.info(request, "This item was removed from your cart.")
@@ -96,7 +102,7 @@ def remove_from_cart(request, slug):
 
 
 def remove_single_item_from_cart(request, slug):
-    item = get_object_or_404(Item, slug=slug)
+    item = Item.objects.get(slug=slug)
     order_qs = Order.objects.filter(
         user=request.user,
         ordered=False
@@ -112,6 +118,8 @@ def remove_single_item_from_cart(request, slug):
             )[0]
             if order_item.quantity > 1:
                 order_item.quantity -= 1
+                item.product_quantity += 1
+                item.save()
                 order_item.save()
             else:
                 order.items.remove(order_item)
@@ -153,7 +161,7 @@ class CheckOutView(View):
         try:
             address = Address.objects.filter(user=self.request.user)
             order = Order.objects.filter(user=self.request.user,ordered=False)    
-            order_item = OrderItem.objects.filter(user=self.request.user,ordered=False)   
+            order_item = OrderItem.objects.filter(user=self.request.user,ordered=False) 
             if address.exists():
                 if payment_form.is_valid():
                     payment_opt = payment_form.cleaned_data.get(

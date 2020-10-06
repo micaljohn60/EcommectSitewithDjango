@@ -27,9 +27,15 @@
               </a>
                {{order_item.quantity}} 
                
+              {% if order_item.item.product_quantity == 0 %}
+              <p> This product quantity is out of stock.</p>
+              {% else %}
               <a href="{% url 'core:add-to-cart' order_item.item.slug%}">
-               <i class="fas fa-plus ml-2"></i></td>
-              </a>
+                <i class="fas fa-plus ml-2"></i></td>
+               </a>
+              {% endif %}
+              
+
             <td> {{ order_item.get_total_item_price}} </td>
             <td>
               <a href="{% url 'core:remove-from-cart' order_item.item.slug %}" class="btn btn-danger btn-sm">
