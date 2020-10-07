@@ -104,6 +104,9 @@ def view_ordered(request):
     }
     return render(request,'ordered.html',context)
     
+def update_product(request):
+    return render(request,'update-product.html')
+
         
         
         

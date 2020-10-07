@@ -7,6 +7,7 @@
     {% if request.user.is_superuser %}      
     
     <div class="row mb-5 mt-5">
+      
       <div class="col-lg-4">
 
             <!-- Card -->
@@ -31,6 +32,7 @@
               </div>
             </div>
             <!-- Card -->
+            
         
       </div>
       <div class="col-lg-4">
@@ -92,6 +94,33 @@
         </div>
         <!-- Card -->
         
+      </div>
+
+      <div class="col-lg-4">
+        <!-- Card -->
+        <div class="card">
+
+          <!-- Card image -->
+          <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" alt="Card image cap">
+
+          <!-- Card content -->
+          <div class="card-body">
+
+            <!-- Title -->
+            <h4 class="card-title"><a>Update Existing Product</a></h4>
+            <!-- Text -->
+            <p class="card-text">Update your existing product</p>
+            <!-- Button -->
+            <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect">
+              <a href="{% url 'myadmin:updateproduct' %}">
+                Update Product
+              </a>      
+            </button> 
+
+          </div>
+
+        </div>
+        <!-- Card -->
       </div>
     </div>
 
@@ -187,5 +216,5 @@
   
 
 {% endif %}
-    
+
 {% endblock %}
