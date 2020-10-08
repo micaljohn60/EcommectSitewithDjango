@@ -1,6 +1,17 @@
 {% extends 'base_layout.html' %}
 
-{% block content%}
-    <h1>This is upgrade existing product</h1>
+{% block content %}
+    <h1>This is real update product</h1>
+
+     <div class="row">
+        <div class="col-md-8"> 
+            <form action="{% url 'myadmin:updateproduct' slug=item.slug %}" method="POST" class="card-body" enctype="multipart/form-data">
+                {% csrf_token %}
     
-{% endblock %}
+                {{form.as_p}}
+                <input type="submit" value="Submit"> 
+              </form>
+        </div>
+    </div> 
+{% endblock content %}
+    

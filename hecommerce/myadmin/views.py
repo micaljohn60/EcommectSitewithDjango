@@ -27,6 +27,9 @@ class UploadProduct(View):
             slug = form.cleaned_data.get(
                 'slug'
             )
+            product_quantity = form.cleaned_data.get(
+                'product_quantity'
+            )
             description = form.cleaned_data.get(
                 'description'
             )
@@ -44,6 +47,7 @@ class UploadProduct(View):
                 price=price,
                 category=category,
                 label=label,
+                product_quantity=product_quantity,
                 description=description,
                 slug=slug,
                 image=image                
@@ -104,9 +108,30 @@ def view_ordered(request):
     }
     return render(request,'ordered.html',context)
     
-def update_product(request):
-    return render(request,'update-product.html')
+class UpdateProductList(ListView):
+    model = Item
+    template_name = 'update-product-list.html'
 
+class UpdateProduct(View):
+    def get(self,request,slug):
+        
+        item = Item.objects.get(slug=slug)
+        form = forms.UpdateForm(instance=item)
+        context = {
+            'form' : form ,
+            'item' : item
+        }
+        return render(self.request,'update-product.html',context)
+    
+    def post(self,request,slug):        
+        item = Item.objects.get(slug=slug)
+        form = forms.UpdateForm(self.request.POST,self.request.FILES,instance=item)   
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Update Success")
+        
+        return render(self.request,'update-product-list.html')
+        
         
         
         

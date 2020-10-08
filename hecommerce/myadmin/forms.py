@@ -1,4 +1,6 @@
 from django import forms
+from .models import models
+from core.models import Item
 
 CATEGORY_CHOICES = (
     ('E', 'Electronic'),
@@ -70,6 +72,11 @@ class UploadProductForm(forms.Form):
            }
         ),
         required=True)
+    
+class UpdateForm(forms.ModelForm):
+    class Meta:
+        model = Item
+        fields = '__all__'
     
   
 
