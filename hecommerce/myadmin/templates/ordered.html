@@ -29,11 +29,11 @@
                 {{order.user}}
                 </td>    
 
-                {% for order_item in order.items.all %}             
-                  <td>{{order_item.get_total_item}}</td>
-                  <td>{{order_item.get_total_item_price}}</td>     
+                             
+                  <td>{{order.get_item_total}}</td>
+                  <td>{{order.get_total}}</td>     
                               
-                {% endfor %}             
+                             
                 
                 <td> 
                   {{order.payment.payment_opition}}       

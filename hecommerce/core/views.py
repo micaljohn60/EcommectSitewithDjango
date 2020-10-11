@@ -10,14 +10,19 @@ from django.views.generic import ListView, DetailView, View
 from .forms import PaymentForm,AddressForm
 # Create your views here.
 
-class ProductListView(ListView):    
+class HomeView(ListView):    
     def get(self,*args,**kwargs):
         
         order = Order.objects.filter(ordered=True,pending=True).count()
+        ordered_count = Order.objects.filter(ordered=True,pending=False).count()
         items = Item.objects.all()
+        items_count = Item.objects.all().count()
+        
         context = {
             'object_list' : items,
-            'order_count' : order
+            'order_count' : order,
+            'items_count' : items_count,
+            'ordered_count' : ordered_count
         }
         return render(self.request,'product_lists.html',context)
     

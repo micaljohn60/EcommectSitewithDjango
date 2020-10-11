@@ -1,16 +1,100 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
-    <h1>This is real update product</h1>
+    <h1>Update Product</h1>
+    <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+        Delete This Product
+    </button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this item?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-danger">
+              This item will be remove completely
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+              <a href="{% url 'myadmin:deleteproduct' slug=item.slug %}" class="btn btn-danger">
+                Delete 
+              </a>
+              
+            </div>
+          </div>
+        </div>
+      </div>
 
-     <div class="row">
-        <div class="col-md-8"> 
-            <form action="{% url 'myadmin:updateproduct' slug=item.slug %}" method="POST" class="card-body" enctype="multipart/form-data">
+     <div class="row">         
+        <div class="col-md-8">             
+            <form action="{% url 'myadmin:updateproduct' slug=item.slug %}" method="POST" class="border border-light p-5 form-container" enctype="multipart/form-data">
                 {% csrf_token %}
-    
-                {{form.as_p}}
-                <input type="submit" value="Submit"> 
+                 
+                <div class="row">
+                    <div class="col">
+                        <label for="" class="">Title : </label>                    
+                        {{form.title}}
+                    </div>
+                    <div class="col">
+                        <label for="" class="">Price :</label>                    
+                        {{form.price}}                    
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        <label for="" class="">Slug :</label>                    
+                        {{form.slug}}
+                    </div>
+                    
+                    <div class="col">
+                        <label for="" class="">Product Qty :</label>                    
+                        {{form.product_quantity}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="" class="">Description :</label>                    
+                        {{form.description}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="" class="">Category :</label>  
+                        {{form.category}}
+                    </div>
+                    <div class="col">
+                        <label for="" class="">Label :</label> 
+                        {{form.label}}
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">  
+                                                              
+                        {{form.image}}
+                    </div>
+                </div>
+                
+
+                <div class="float-right mt-2">
+                    <a href="{% url 'myadmin:updateproductlist' %}" class="btn btn-danger"> 
+                        Cancle
+                    </a>
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                </div>
+                 
               </form>
+        </div>
+
+        <div class="col-md-4">
+            <label for="">Current Image : {{item.image}}</label>
+            <img src="{{item.image.url}}" alt="" width="500px" height="350px">
         </div>
     </div> 
 {% endblock content %}

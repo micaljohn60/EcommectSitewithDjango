@@ -128,9 +128,18 @@ class UpdateProduct(View):
         form = forms.UpdateForm(self.request.POST,self.request.FILES,instance=item)   
         if form.is_valid():
             form.save()
-            return HttpResponse("Update Success")
+            messages.info(request,item.title + "is updated")
+            return redirect("myadmin:updateproductlist")
         
         return render(self.request,'update-product-list.html')
+#need to fix
+def delete_product(request,slug):
+    item = Item.objects.get(slug=slug)
+    messages.info(request,item.title + "is delected")
+    item.delete()    
+    return redirect("myadmin:updateproductlist")
+
+
         
         
         

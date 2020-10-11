@@ -4,125 +4,123 @@
 
 {% if request.user.is_authenticated %}
     
-    {% if request.user.is_superuser %}      
+    {% if request.user.is_superuser %} 
+
+    <div class="row">
+      <div class="col-md-4 custom-card mt-3 ml-3" style="background-color: #697FEF">
+        <div class="row">
+          <div class="col-lg-12 text-center mt-3 text-white">
+            <h1 class="">Inventory</h1>
+          </div>
+          
+        </div>
+        <div class="row">
+          <div class="col-lg-12 text-center mt-2 mb-3 text-white">
+            <h1 class="">{{items_count}}</h1>
+          </div>
+        </div>
+      </div>   
+      
+      <div class="col-md-4 custom-card ml-3 mt-3" style="background-color: #0093D5">
+        <div class="row">
+          <div class="col-lg-12 text-center mt-3 text-white">
+            <h1 class="">Pending Ordered</h1>
+          </div>
+          
+        </div>
+        <div class="row">
+          <div class="col-lg-12 text-center mt-2 mb-3 text-white">
+            <h1 class="">{{order_count}}</h1>
+          </div>
+        </div>
+      </div>  
+
+      <div class="col-md-3 custom-card ml-3 mt-3" style="background-color: #EF6969">
+        <div class="row">
+          <div class="col-lg-12 text-center mt-3 text-white">
+            <h1 class=""> Ordered</h1>
+          </div>
+          
+        </div>
+        <div class="row">
+          <div class="col-lg-12 text-center mt-2 mb-3 text-white">
+            <h1 class="">{{ordered_count}}</h1>
+          </div>
+        </div>
+      </div> 
+
+    </div>
+    
     
     <div class="row mb-5 mt-5">
-      
       <div class="col-lg-4">
-
-            <!-- Card -->
-            <div class="card">
-
-              <!-- Card image -->
-              <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" alt="Card image cap">
-
-              <!-- Card content -->
-              <div class="card-body">
-
-                <!-- Title -->
-                <h4 class="card-title"><a>Upload New Product</a></h4>
-                <!-- Text -->
-                <p class="card-text">
-                  Upload your new product to sell.
-                </p>
-                <!-- Button -->
-                <button type="button" class="btn btn-outline-primary btn-rounded waves-effect">
-                  <a href="{% url 'myadmin:upload-product' %}">Upload Product</a>
-                </button>
-              </div>
-            </div>
-            <!-- Card -->
+        <h3>
+          Product
+        </h3>
+          <div class="row">
             
-        
-      </div>
-      <div class="col-lg-4">
-
-        <!-- Card -->
-        <div class="card">
-
-          <!-- Card image -->
-          <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" alt="Card image cap">
-
-          <!-- Card content -->
-          <div class="card-body">
-
-            <!-- Title -->
-            <h4 class="card-title"><a>View Pending Orders</a></h4>
-            <!-- Text -->
-            <p class="card-text">View pending orders to </p>
-            <!-- Button -->
-            <div class="row">
-              <div class="col-lg-6">
-                <button type="button" class="btn btn-outline-default btn-rounded waves-effect">
-                  <a href="{% url 'myadmin:pendingorders' %}">View</a>              
-                </button>
-              </div>
-              <div class="col-lg-6">
-                <button type="button" class="btn btn-danger">{{order_count}}</button>
-              </div>
+            <div class="col-lg-5">
+              <a href="{% url 'myadmin:upload-product' %}" class=>
+                <div class="custom-card text-center">
+                  <i class="fas fa-upload fa-3x pt-3 pb-3 text-white"></i>
+                  <span>
+                    <p class="pb-2 text-dark">Upload Product</p>
+                  </span>
+                </div>
+              </a>
             </div>
-          </div>
 
-        </div>
-        <!-- Card -->
-        
-      </div>
-      <div class="col-lg-4">
-
-        <!-- Card -->
-        <div class="card">
-
-          <!-- Card image -->
-          <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" alt="Card image cap">
-
-          <!-- Card content -->
-          <div class="card-body">
-
-            <!-- Title -->
-            <h4 class="card-title"><a>View Ordered</a></h4>
-            <!-- Text -->
-            <p class="card-text">View Ordered Lists</p>
-            <!-- Button -->
-            <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect">
-              <a href="{% url 'myadmin:viewordered' %}">
-                View Ordered
-              </a>      
-            </button> 
+            <div class="col-lg-5">
+              <a href="{% url 'myadmin:updateproductlist' %}" class=>
+                <div class="custom-card text-center">
+                  <i class="far fa-edit fa-3x pt-3 pb-3 text-white"></i>
+                  <span>
+                    <p class="pb-2 text-dark">Update Product</p>
+                  </span>
+                </div>
+              </a>
+            </div>
 
           </div>
-
-        </div>
-        <!-- Card -->
         
       </div>
 
       <div class="col-lg-4">
-        <!-- Card -->
-        <div class="card">
+        <h3>
+          Orders
+        </h3>
+          <div class="row">
+            
+            <div class="col-lg-5">
+              <a href="{% url 'myadmin:pendingorders' %}" class=>
+                <div class="custom-card text-center">
+                  <i class="far fa-clock fa-3x pt-3 pb-3 text-white"></i>
 
-          <!-- Card image -->
-          <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" alt="Card image cap">
+                  <span>
+                    <p class="pb-2 text-dark">Pending Orders</p>
+                  </span>
+                </div>
+              </a>
+            </div>
 
-          <!-- Card content -->
-          <div class="card-body">
-
-            <!-- Title -->
-            <h4 class="card-title"><a>Update Existing Product</a></h4>
-            <!-- Text -->
-            <p class="card-text">Update your existing product</p>
-            <!-- Button -->
-            <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect">
-              <a href="{% url 'myadmin:updateproductlist' %}">
-                Update Product
-              </a>      
-            </button> 
+            <div class="col-lg-5">
+              <a href="{% url 'myadmin:viewordered' %}" class=>
+                <div class="custom-card text-center">
+                  <i class="fas fa-border-all fa-3x pt-3 pb-3 text-white"></i>
+                  <span>
+                    <p class="pb-2 text-dark">View Ordered</p>
+                  </span>
+                </div>
+              </a>
+            </div>
 
           </div>
-
-        </div>
-        <!-- Card -->
+        
       </div>
+
     </div>
+      
+     
 
       {% else %}
        <!--Grid row-->

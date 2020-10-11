@@ -1,6 +1,6 @@
 from django.urls import path,re_path
 from.views import(
-    ProductListView,
+    HomeView,
     ProductDetailView,
     add_to_cart,
     Order_Summary,
@@ -15,7 +15,7 @@ from.views import(
 app_name="core"
 
 urlpatterns = [
-    path('', ProductListView.as_view(),name="productlists"),
+    path('', HomeView.as_view(),name="productlists"),
     path('order-summary/',Order_Summary.as_view(),name="order-summary"),
     path('check-out/',CheckOutView.as_view(),name="check-out"),
     path('order-snippet/',order_snippet_view,name="order-snippet"),
