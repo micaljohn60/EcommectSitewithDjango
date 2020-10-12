@@ -132,19 +132,15 @@ class UpdateProduct(View):
             return redirect("myadmin:updateproductlist")
         
         return render(self.request,'update-product-list.html')
-#need to fix
-def delete_product(request,slug):
-    item = Item.objects.get(slug=slug)
-    messages.info(request,item.title + "is delected")
-    item.delete()    
+
+def make_unavaliable_product(request,slug):
+    item = Item.objects.filter(slug=slug)
+    item.update(status=False)
+    messages.warning("Item has been disabled")
     return redirect("myadmin:updateproductlist")
 
-
-        
-        
-        
-        
-        
-            
-            
-    
+def make_product_avaliable(request,slug):
+    item = Item.objects.filter(slug=slug)
+    item.update(status=True)
+    messages.info("Success")
+    return redirect("myadmin:updateproductlist")

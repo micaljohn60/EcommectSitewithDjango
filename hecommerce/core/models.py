@@ -24,6 +24,7 @@ class Item(models.Model):
     product_quantity = models.IntegerField(null=False,blank=False,default=0)
     slug = models.SlugField()
     description = models.TextField()
+    status = models.BooleanField(default=True)
     image = models.ImageField()
     
     def __str__(self):
