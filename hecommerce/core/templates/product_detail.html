@@ -22,18 +22,26 @@
           <a href="">
             <span class="badge purple mr-1">{{object.get_category_display}}</span>
           </a>
+          
+          {% if object.get_label_display == 'danger' %}
           <a href="">
-            <span class="badge blue mr-1">New</span>
+            <span class="badge {{object.get_label_display}}-color mr-1">New</span>
           </a>
+          
+          {% elif object.get_label_display == 'secondary'%}
           <a href="">
-            <span class="badge red mr-1">Bestseller</span>
+            <span class="badge {{object.get_label_display}}-color mr-1">Best Seller</span>
           </a>
+          {% else %}
+
+          {% endif %}
+          
         </div>
 
         <p class="lead">
-          <span class="mr-1">
+          <!-- <span class="mr-1">
             <del>$200</del>
-          </span>
+          </span> -->
           <span>${{object.price}}</span>
         </p>
 
@@ -87,13 +95,19 @@
         <div class="row wow fadeIn">
   
           <!--Grid column-->
+          
+          {% for item in items|slice:":3" %}          
+            
           <div class="col-lg-4 col-md-12 mb-4">
-  
-            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="">
+           
+          <a href="{% url 'core:productdetail' slug=item.slug %}">
+            <img src="{{item.image.url}}" class="img-fluid" alt="">
+
+          </a>
   
           </div>
           <!--Grid column-->
-  
+          {% endfor %}
         </div>
         <!--Grid row-->
    

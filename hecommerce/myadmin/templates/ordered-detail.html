@@ -1,0 +1,58 @@
+{% extends 'base_layout.html' %}
+
+
+{% block content %}
+<h1>Ordered detail </h1>      
+  
+<div class="row">
+  {% for order in orders %}
+  
+    <div class="col-lg-8">           
+      <button type="button" class="btn btn-primary">{{order.ref_code}}</button>
+      
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order_item in order.items.all %}
+              <tr>
+               
+                
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{order_item.item.title}}</td>
+                <td>{{order_item.get_total_item}}</td>
+                <td>{{order_item.item.price}}</td>
+                       
+              </tr>    
+              {% endfor %} 
+              <tr>
+                {% for my_order in orders %}
+                <td colspan="3"><b>Order Total</b></td>
+                <td><b>${{ my_order.get_total }}</b></td>
+                
+                {% endfor %}
+                
+              </tr>
+            </tbody>
+          </table>
+        </div>
+          
+        
+    </div>
+
+    <div class="col-lg-4">
+      <img src="{{order.payment.payment_img.url}}" alt="" width="500px" height="250px">
+    </div>
+    
+    {% endfor %}
+
+</div>
+{% endblock content %}
+    

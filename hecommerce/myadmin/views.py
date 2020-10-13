@@ -107,6 +107,13 @@ def view_ordered(request):
         'orders':orders
     }
     return render(request,'ordered.html',context)
+
+def view_ordered_detail(request,slug):
+    orders = Order.objects.filter(ordered=True,pending=False,ref_code=slug)
+    context ={
+        'orders':orders
+    }
+    return render(request,"ordered-detail.html",context)
     
 class UpdateProductList(ListView):
     model = Item
@@ -133,14 +140,4 @@ class UpdateProduct(View):
         
         return render(self.request,'update-product-list.html')
 
-def make_unavaliable_product(request,slug):
-    item = Item.objects.filter(slug=slug)
-    item.update(status=False)
-    messages.warning("Item has been disabled")
-    return redirect("myadmin:updateproductlist")
 
-def make_product_avaliable(request,slug):
-    item = Item.objects.filter(slug=slug)
-    item.update(status=True)
-    messages.info("Success")
-    return redirect("myadmin:updateproductlist")

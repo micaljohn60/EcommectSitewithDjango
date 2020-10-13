@@ -3,63 +3,6 @@
 {% block content %}
     <h1>Update Product</h1>
     
-    {% if item.status == False %}
-    <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
-        Make This Product Avaliable
-    </button>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this item?</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body text-primary">
-              This item will avaliable again
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-              <a href="{% url 'myadmin:makeproductavaliable' slug=item.slug %}" class="btn btn-danger">
-                Ok
-              </a>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {% else %}
-      <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
-        Make This Product Unavaliable
-    </button>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this item?</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body text-danger">
-              This item will unavaliable
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-              <a href="{% url 'myadmin:unavaliableproduct' slug=item.slug %}" class="btn btn-danger">
-                Do it 
-              </a>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    {% endif %}
-        
-    
-
      <div class="row">         
         <div class="col-md-8">             
             <form action="{% url 'myadmin:updateproduct' slug=item.slug %}" method="POST" class="border border-light p-5 form-container" enctype="multipart/form-data">
@@ -107,9 +50,13 @@
                 </div>
 
                 <div class="row mt-3">
-                    <div class="col">  
-                                                              
+                    <div class="col">                                                                
                         {{form.image}}
+                    </div>
+
+                    <div class="col">
+                      <label for="" class="text-danger">Product Avaliabality</label>
+                      {{form.status}}
                     </div>
                 </div>
                 

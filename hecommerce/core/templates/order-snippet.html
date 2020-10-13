@@ -59,7 +59,7 @@
         <tbody>
           {% for object in objects %}
           <tr>            
-            <th>  
+            <th scope="row">{{forloop.counter}}</th>
                 <td>
                   {{object.ref_code}}
                 </td>       
@@ -68,7 +68,7 @@
                   <td>{{object.get_total}}</td>
                   <td>{{object.pending}}</td>
                 
-            </th>            
+                        
           </tr>
           {% endfor %}
           

@@ -1,6 +1,5 @@
 {% extends 'base_layout.html' %}
 
-
 {% block content %}
 
 <div class="table-responsive text-nowrap">
@@ -13,40 +12,35 @@
           <th scope="col">Customer Name</th>
           <th scope="col">Quantity</th>          
           <th scope="col">Total</th>
-          <th scope="col">Payment Opition</th>
-          <th scope="col">Status</th>
+          <th scope="col">Payment Opition</th>          
           <th scope="col"></th>         
         </tr>
       </thead>
       <tbody>
         {% for order in orders %}
           <tr>            
-            <th>  
+            <th scope="row">{{forloop.counter}}</th>
                 <td>
                   {{order.ref_code}}
-                </td>     
+                </td>  
+
                 <td>
                 {{order.user}}
-                </td>    
+                </td>
 
-                             
-                  <td>{{order.get_item_total}}</td>
-                  <td>{{order.get_total}}</td>     
-                              
-                             
+                <td>{{order.get_item_total}}</td>
+                <td>{{order.get_total}}</td>     
                 
                 <td> 
                   {{order.payment.payment_opition}}       
                 </td>  
-                  
-                <td>Pending</td>  
 
                 <td>
-                  <a href="{% url 'myadmin:pendingdetail' slug=order.ref_code %}">
+                  <a href="{% url 'myadmin:ordered-detail' slug=order.ref_code %}">
                   View Detail
                   </a>
                 </td>
-            </th>            
+                        
           </tr>
           {% endfor %}
       </tbody>

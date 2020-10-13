@@ -237,7 +237,16 @@
         <h5>
           <strong>
             <a href="{{item.slug}}" class="dark-grey-text">{{item.get_category_display}}
+              
+              {% if item.get_label_display == 'danger' %}
               <span class="badge badge-pill {{item.get_label_display}}-color">NEW</span>
+              {% elif item.get_label_display == 'secondary' %}
+              <span class="badge badge-pill {{item.get_label_display}}-color">Best Seller</span>
+              {% elif item.get_label_display == 'primary' %}
+              <span class=""></span>
+              {% endif %}
+                
+              
             </a>
           </strong>
         </h5>

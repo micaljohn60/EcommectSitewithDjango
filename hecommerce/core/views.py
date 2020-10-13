@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import ListView, DetailView, View
 from .forms import PaymentForm,AddressForm
+import random
 # Create your views here.
 
 class HomeView(ListView):    
@@ -27,9 +28,16 @@ class HomeView(ListView):
         return render(self.request,'product_lists.html',context)
     
 
-class ProductDetailView(DetailView):
-    model = Item
-    template_name = "product_detail.html"
+class ProductDetailView(View):
+    def get(self,request,slug):
+        
+        item = Item.objects.get(slug=slug)
+        items = Item.objects.all()[:3]         
+        context = {
+            'object' : item,
+            'items'  : items
+        }
+        return render(request,'product_detail.html',context)
     
 class Order_Summary(View):
     def get(self,*args,**kwargs):
