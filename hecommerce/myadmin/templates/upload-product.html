@@ -1,12 +1,14 @@
 {% extends 'base_layout.html' %}
 
 {% block content%}
+
+
 <h2 class="my-5 h2 text-center">Add New Product</h2>
 <div class="row">
     <div class="col-md-8"> 
-        <form action="{% url 'myadmin:upload-product' %}" method="POST" class="card-body" enctype="multipart/form-data">
+        <form action="{% url 'myadmin:upload-product' %}" method="POST" class="card-body" id="form-id" enctype="multipart/form-data">
             {% csrf_token %}
-
+            
             <div class="row">
                 <div class="col-md-6 ">
                     <div class="md-form ">
@@ -19,6 +21,7 @@
                     <div class="md-form ">
                         {{form.price}}
                         <label for="price" class="">Product Price</label>
+                        <p id="error-text" class="text-danger"></p>
                     </div>                       
                     
                 </div>
@@ -33,6 +36,7 @@
                     <div class="md-form ">
                         {{form.product_quantity}}
                         <label for="product_quantity" class="">Product Quantity</label>
+                        <p id="error-text2" class="text-danger"></p>
                     </div>                       
                     
                 </div>
@@ -69,6 +73,7 @@
             <div>
                 <label for="state">Image Dimension : 1384px x 1038px preferrable </label>
               </div> 
+              <p id="error-text1" class="text-danger"></p>
             
               <div class="input-group">
                   
@@ -82,10 +87,59 @@
                   </div>
               </div>
               <hr class="mb-4">
-              <button class="btn btn-primary btn-lg btn-block" type="submit">Add</button>
+              <button class="btn btn-primary btn-lg btn-block" type="submit" onclick="checkValidation();"  id="my-button">Upload</button>
           </form>
     </div>
 </div>
+<script>
+
+    $(document).ready(function(){
+        var _URL = window.URL;
+        $("#inputGroupFile01").change(function (e) {
+            if ((file = this.files[0])) {
+                img = new Image();                
+                 img.onload = function () {
+                    if(img.width < 1383 && img.height < 1037){   
+                        document.getElementById("error-text1").innerHTML = 'Image Is Too Small. To Upload Please Change Image Dimension';  
+                        $('#error-text1').show('slow')                                            
+                        $('#my-button').hide('slow')
+                    }
+                    if(img.width > 1385 && img.height > 1038){
+                        document.getElementById("error-text1").innerHTML = 'Image Is Too Large. To Upload Please Change Image Dimension';  
+                        $('#error-text1').show('slow')                                            
+                        $('#my-button').hide('slow')
+                    }
+                    else{
+                        $('#error-text1').hide('slow')
+                        $('#my-button').show('slow')
+                    }
+
+                 };
+                img.src = _URL.createObjectURL(file);
+            }
+        });
+    })  
+    
+    
+    function checkValidation(){ 
+             
+        var price = document.getElementById('price').value;
+        var qty = document.getElementById('quantity').value;  
+             
+        if (isNaN(price) || price < 0){
+            $( "form" ).submit(function( event ) {
+            event.preventDefault();
+            document.getElementById("error-text").innerHTML = 'Price Is Invalid';
+            });
+        } 
+        if (isNaN(qty) || qty < 0){
+            $( "form" ).submit(function( event ) {
+            event.preventDefault();
+            document.getElementById("error-text2").innerHTML = 'Product Quantity Is Invalid';
+            });
+        }        
+    }
+</script>
 
 
 {% endblock %}

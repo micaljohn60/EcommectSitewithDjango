@@ -15,7 +15,8 @@
                     </div>
                     <div class="col">
                         <label for="" class="">Price :</label>                    
-                        {{form.price}}                    
+                        {{form.price}}         
+                        <p id="error-text" class="text-danger"></p>           
                     </div>
                 </div>
                 
@@ -28,6 +29,7 @@
                     <div class="col">
                         <label for="" class="">Product Qty :</label>                    
                         {{form.product_quantity}}
+                        <p id="error-text2" class="text-danger"></p>
                     </div>
                 </div>
 
@@ -50,7 +52,8 @@
                 </div>
 
                 <div class="row mt-3">
-                    <div class="col">                                                                
+                    <div class="col">       
+                        <p id="error-text1" class="text-danger"></p>                                                         
                         {{form.image}}
                     </div>
 
@@ -58,14 +61,13 @@
                       <label for="" class="text-danger">Product Avaliabality</label>
                       {{form.status}}
                     </div>
-                </div>
-                
+                </div>                
 
                 <div class="float-right mt-2">
                     <a href="{% url 'myadmin:updateproductlist' %}" class="btn btn-danger"> 
                         Cancle
                     </a>
-                    <input type="submit" value="Submit" class="btn btn-primary">
+                    <input type="submit" value="Submit" class="btn btn-primary" onclick="checkValidation();">
                 </div>
                  
               </form>
@@ -76,5 +78,55 @@
             <img src="{{item.image.url}}" alt="" width="500px" height="350px">
         </div>
     </div> 
+
+    <script>
+
+        $(document).ready(function(){
+            var _URL = window.URL;
+            $("#inputGroupFile01").change(function (e) {
+                if ((file = this.files[0])) {
+                    img = new Image();                
+                     img.onload = function () {
+                        if(img.width < 1383 && img.height < 1037){   
+                            document.getElementById("error-text1").innerHTML = 'Image Is Too Small. To Upload Please Change Image Dimension';  
+                            $('#error-text1').show('slow')                                            
+                            $('#my-button').hide('slow')
+                        }
+                        if(img.width > 1385 && img.height > 1038){
+                        document.getElementById("error-text1").innerHTML = 'Image Is Too Large. To Upload Please Change Image Dimension';  
+                        $('#error-text1').show('slow')                                            
+                        $('#my-button').hide('slow')
+                    }
+                        else{
+                            $('#error-text1').hide('slow')
+                            $('#my-button').show('slow')
+                        }
+    
+                     };
+                    img.src = _URL.createObjectURL(file);
+                }
+            });
+        })  
+        
+        
+        function checkValidation(){ 
+                 
+            var price = document.getElementById('id_price').value;
+            var qty = document.getElementById('id_product_quantity').value;  
+                 
+            if (isNaN(price) || price < 0){
+                $( "form" ).submit(function( event ) {
+                event.preventDefault();
+                document.getElementById("error-text").innerHTML = 'Price Is Invalid';
+                });
+            } 
+            if (isNaN(qty) || qty < 0){
+                $( "form" ).submit(function( event ) {
+                event.preventDefault();
+                document.getElementById("error-text2").innerHTML = 'Product Quantity Is Invalid';
+                });
+            }        
+        }
+    </script>
 {% endblock content %}
     

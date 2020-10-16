@@ -132,7 +132,7 @@
       <!--Card image-->
       <div class="view overlay">
         <img src="{{item.image.url}}" class="card-img-top rounded"
-          alt="{{item.slug}}" > 
+          alt="{{item.slug}}" >
         <a>
           <div class="mask rgba-white-slight"></div>
         </a>
@@ -143,12 +143,18 @@
       <div class="card-body text-center">
         <!--Category & Title-->
         <a href="{{item.slug}}" class="grey-text">
-          <h5>{{item.title}}</h5>
+          <h5>{{item.title_split}}</h5>
         </a>
         <h5>
           <strong>
             <a href="{{item.slug}}" class="dark-grey-text">{{item.get_category_display}}
+              {% if item.get_label_display == 'danger' %}
               <span class="badge badge-pill {{item.get_label_display}}-color">NEW</span>
+              {% elif item.get_label_display == 'secondary' %}
+              <span class="badge badge-pill {{item.get_label_display}}-color">Best Seller</span>
+              {% elif item.get_label_display == 'primary' %}
+              <span class=""></span>
+              {% endif %}
             </a>
           </strong>
         </h5>

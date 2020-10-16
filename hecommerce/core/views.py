@@ -25,14 +25,13 @@ class HomeView(ListView):
             'items_count' : items_count,
             'ordered_count' : ordered_count
         }
-        return render(self.request,'product_lists.html',context)
-    
+        return render(self.request,'product_lists.html',context)    
 
 class ProductDetailView(View):
     def get(self,request,slug):
         
         item = Item.objects.get(slug=slug)
-        items = Item.objects.all()[:3]         
+        items = Item.objects.all().order_by('?')[:3]         
         context = {
             'object' : item,
             'items'  : items
@@ -111,8 +110,6 @@ def remove_from_cart(request, slug):
     else:
         messages.info(request, "You do not have an active order")
         return redirect("core:product", slug=slug)
-
-
 
 def remove_single_item_from_cart(request, slug):
     item = Item.objects.get(slug=slug)

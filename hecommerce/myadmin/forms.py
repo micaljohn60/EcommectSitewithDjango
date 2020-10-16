@@ -69,6 +69,7 @@ class UploadProductForm(forms.Form):
             attrs={
             'class':'custom-file-input',
             'id': 'inputGroupFile01',
+            
            }
         ),
         required=True)

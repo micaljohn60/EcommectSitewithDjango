@@ -34,6 +34,9 @@ class Item(models.Model):
         return reverse("core:add-to-cart", kwargs={
             'slug': self.slug
         })       
+        
+    def title_split(self):
+        return self.title[:39] + '...'
     
     
 class OrderItem(models.Model):
