@@ -30,7 +30,10 @@ class HomeView(ListView):
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             
+=======
+>>>>>>> 2215bcb54ef95ea14bc94a95daa0dc79a3d3813b
 =======
 >>>>>>> 2215bcb54ef95ea14bc94a95daa0dc79a3d3813b
 =======
