@@ -9,7 +9,7 @@ from.views import(
     UpdateProductList,
     UpdateProduct,
     view_ordered_detail,
-    addnewsletter
+    addnewletter
 )
 
 app_name = "myadmin"
