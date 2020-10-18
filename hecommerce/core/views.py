@@ -26,7 +26,10 @@ class HomeView(ListView):
             'ordered_count' : ordered_count,
             'newsletter'  : newsletter,
             'newsletters'  : newsletters
+<<<<<<< HEAD
             
+=======
+>>>>>>> 2215bcb54ef95ea14bc94a95daa0dc79a3d3813b
         }
         return render(self.request,'product_lists.html',context)
 
