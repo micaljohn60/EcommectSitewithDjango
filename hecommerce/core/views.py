@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from.models import Item,Order,OrderItem,Address,Payment,Notification
+from.models import Item,Order,OrderItem,Address,Payment,Notification,NewsLetter
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils import timezone
@@ -13,7 +13,8 @@ import random
 
 class HomeView(ListView):    
     def get(self,*args,**kwargs):
-        
+        newsletter = NewsLetter.objects.get(id=1)
+        newsletters = NewsLetter.objects.all().order_by('-id')[:2]
         order = Order.objects.filter(ordered=True,pending=True).count()
         ordered_count = Order.objects.filter(ordered=True,pending=False).count()
         items = Item.objects.all()
@@ -23,7 +24,9 @@ class HomeView(ListView):
             'object_list' : items,
             'order_count' : order,
             'items_count' : items_count,
-            'ordered_count' : ordered_count
+            'ordered_count' : ordered_count,
+            'newsletter'  : newsletter,
+            'newsletters'  : newsletters
         }
         return render(self.request,'product_lists.html',context)    
 

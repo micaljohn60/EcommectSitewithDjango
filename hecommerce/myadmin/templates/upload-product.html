@@ -92,6 +92,8 @@
     </div>
 </div>
 <script>
+    
+    
 
     $(document).ready(function(){
         var _URL = window.URL;
@@ -104,7 +106,7 @@
                         $('#error-text1').show('slow')                                            
                         $('#my-button').hide('slow')
                     }
-                    if(img.width > 1385 && img.height > 1038){
+                    else if(img.width > 1385 && img.height > 103){
                         document.getElementById("error-text1").innerHTML = 'Image Is Too Large. To Upload Please Change Image Dimension';  
                         $('#error-text1').show('slow')                                            
                         $('#my-button').hide('slow')
@@ -115,10 +117,13 @@
                     }
 
                  };
-                img.src = _URL.createObjectURL(file);
+                
             }
+            img.src = _URL.createObjectURL(file);
         });
+        
     })  
+
     
     
     function checkValidation(){ 

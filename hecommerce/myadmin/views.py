@@ -16,7 +16,7 @@ class UploadProduct(View):
         return render(self.request,'upload-product.html',context)
     
     def post(self,*args,**kwargs):
-        form = forms.UploadProductForm(self.request.POST,self.request.FILES or None)
+        form = forms.UploadProductForm(self.request.POST,self.request.FILES or None)            
         if form.is_valid():
             title = form.cleaned_data.get(
                 'title'
@@ -42,19 +42,36 @@ class UploadProduct(View):
             image = form.cleaned_data.get(
                 'image'
             )
-            save_item = Item(
-                title=title,
-                price=price,
-                category=category,
-                label=label,
-                product_quantity=product_quantity,
-                description=description,
-                slug=slug,
-                image=image                
-            )
-            save_item.save()
-            messages.info(self.request,"Item Has Been Added")
-            return redirect("myadmin:upload-product")
+            items = Item.objects.filter(slug=slug)
+            if items.exists():
+                slug = slug + "1"
+                save_item = Item(
+                    title=title,
+                    price=price,
+                    category=category,
+                    label=label,
+                    product_quantity=product_quantity,
+                    description=description,
+                    slug=slug,
+                    image=image                
+                )
+                save_item.save()    
+                messages.info(self.request,"Item Has Been Added")
+                return redirect("myadmin:upload-product")
+            else:       
+                save_item = Item(
+                    title=title,
+                    price=price,
+                    category=category,
+                    label=label,
+                    product_quantity=product_quantity,
+                    description=description,
+                    slug=slug,
+                    image=image                
+                )
+                save_item.save()
+                messages.info(self.request,"Item Has Been Added")
+                return redirect("myadmin:upload-product")
         form = forms.UploadProductForm()
         context = {
             'form':form
@@ -140,4 +157,5 @@ class UpdateProduct(View):
         
         return render(self.request,'update-product-list.html')
 
-
+def addnewletter(request):
+    pass

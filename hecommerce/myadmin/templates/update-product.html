@@ -58,8 +58,12 @@
                     </div>
 
                     <div class="col">
-                      <label for="" class="text-danger">Product Avaliabality</label>
-                      {{form.status}}
+                      <label for="" class="text-danger">Product Avaliabality</label>  
+                      <div class="custom-form-control">
+                        {{form.status}} 
+                      </div>
+                            
+                      
                     </div>
                 </div>                
 
@@ -67,7 +71,7 @@
                     <a href="{% url 'myadmin:updateproductlist' %}" class="btn btn-danger"> 
                         Cancle
                     </a>
-                    <input type="submit" value="Submit" class="btn btn-primary" onclick="checkValidation();">
+                    <input type="submit" value="Submit" class="btn btn-primary" id="my-button" onclick="checkValidation();">
                 </div>
                  
               </form>
@@ -79,36 +83,40 @@
         </div>
     </div> 
 
-    <script>
+    <script>   
 
-        $(document).ready(function(){
-            var _URL = window.URL;
-            $("#inputGroupFile01").change(function (e) {
-                if ((file = this.files[0])) {
-                    img = new Image();                
-                     img.onload = function () {
-                        if(img.width < 1383 && img.height < 1037){   
-                            document.getElementById("error-text1").innerHTML = 'Image Is Too Small. To Upload Please Change Image Dimension';  
-                            $('#error-text1').show('slow')                                            
-                            $('#my-button').hide('slow')
-                        }
-                        if(img.width > 1385 && img.height > 1038){
+$(document).ready(function(){
+        var _URL = window.URL;
+        $("#id_image").change(function (e) {
+            if ((file = this.files[0])) {
+                img = new Image();                
+                 img.onload = function () {
+                    if(img.width < 1383 && img.height < 1037){   
+                        document.getElementById("error-text1").innerHTML = 'Image Is Too Small. To Upload Please Change Image Dimension';  
+                        $('#error-text1').show('slow')                                            
+                        $('#my-button').hide('slow')
+                    }
+                    else if(img.width > 1385 && img.height > 1039){
                         document.getElementById("error-text1").innerHTML = 'Image Is Too Large. To Upload Please Change Image Dimension';  
                         $('#error-text1').show('slow')                                            
                         $('#my-button').hide('slow')
                     }
-                        else{
-                            $('#error-text1').hide('slow')
-                            $('#my-button').show('slow')
-                        }
-    
-                     };
-                    img.src = _URL.createObjectURL(file);
-                }
-            });
-        })  
-        
-        
+                    else{
+                        $('#error-text1').hide('slow')
+                        $('#my-button').show('slow')
+                    }
+                 };
+                img.src = _URL.createObjectURL(file);
+            }
+            console.log(document.getElementById("id_image"))
+        });
+    })
+
+
+    titleInput.addEventListener('keyup', (e) => {
+    slugInput.setAttribute('value', slugify(titleInput.value));
+    });
+
         function checkValidation(){ 
                  
             var price = document.getElementById('id_price').value;

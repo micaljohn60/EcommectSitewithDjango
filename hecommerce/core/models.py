@@ -163,3 +163,8 @@ class Notification(models.Model):
     def __str__(self):
         return self.user.username
     
+class NewsLetter(models.Model):
+    imge = models.ImageField()
+    
+    
+    

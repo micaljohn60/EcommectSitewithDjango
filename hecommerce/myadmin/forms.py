@@ -1,6 +1,6 @@
 from django import forms
 from .models import models
-from core.models import Item
+from core.models import Item,NewsLetter
 
 CATEGORY_CHOICES = (
     ('E', 'Electronic'),
@@ -78,6 +78,11 @@ class UpdateForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = '__all__'
+        
+class AddNewsLetter(forms.ModelForm):
+    class Meta:
+        models = NewsLetter
+        fields = "__all__"
     
   
 
