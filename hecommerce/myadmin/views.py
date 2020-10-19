@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from core.models import Item,Order,OrderItem,Payment,Notification
+from core.models import Item,Order,OrderItem,Payment,Notification,NewsLetter
 from django.views.generic import ListView, DetailView, View
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -157,5 +157,28 @@ class UpdateProduct(View):
         
         return render(self.request,'update-product-list.html')
 
-def addnewletter(request):
-    pass
+def newsletterlists(request):
+    newsletters = NewsLetter.objects.all()
+    
+    context = {
+        'newsletters' : newsletters
+    }
+    return render(request,'news-letter-lists.html',context)
+
+def updateNewsLetter(request,id):
+    if request.method == "GET":
+        newsletter = NewsLetter.objects.get(id=id)
+        form = forms.AddNewsLetter(instance=newsletter)
+        context = {
+            'newsletter' : newsletter,
+            'form' : form
+        }
+        return render(request,'update-newsletter.html',context)
+    if request.method == "POST":
+        newsletter = NewsLetter.objects.get(id=id)
+        form = forms.AddNewsLetter(request.POST,request.FILES,instance=newsletter)
+        if form.is_valid():
+            form.save()
+            
+            return redirect("myadmin:newsletterlists")
+        return redirect('myadmin:newsletterlists')

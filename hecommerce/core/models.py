@@ -165,6 +165,8 @@ class Notification(models.Model):
     
 class NewsLetter(models.Model):
     imge = models.ImageField()
+    title = models.CharField(max_length=100,null=True,blank=True)
+    date = models.DateField(auto_now_add=True)
     
-    
+
     

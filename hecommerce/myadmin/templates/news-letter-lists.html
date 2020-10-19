@@ -1,0 +1,25 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<h1>New Letter List</h1>
+
+<div class="row">
+    {% for newletter in newsletters %}
+    <div class="col-lg-4">        
+        <a href="{% url 'myadmin:updatenewsletter' id=newletter.id %}" style="color: black;">
+            <!-- Card -->
+            <div class="card card-cascade wider">
+                <!-- Card image -->
+                <img src="{{newletter.imge.url}}" alt="" class="img-fluid mx-auto d-block" style="width: 250px;">
+            
+                <!-- Title -->
+                <h2 class="card-header-title mb-3">{{newletter.title}}</h2>
+                <!-- Text -->
+                <p class="mb-0"><i class="fas fa-calendar mr-2"></i>{{newletter.date}}</p>
+            </div>
+            <!-- Card -->
+        </a>
+</div>
+    {% endfor %}
+</div>
+{% endblock %}

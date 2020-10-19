@@ -81,8 +81,8 @@ class UpdateForm(forms.ModelForm):
         
 class AddNewsLetter(forms.ModelForm):
     class Meta:
-        models = NewsLetter
-        fields = "__all__"
+        model = NewsLetter
+        fields = '__all__'
     
   
 

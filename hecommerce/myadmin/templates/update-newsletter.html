@@ -1,0 +1,38 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div>
+    <h3>Update Newsletter</h3>
+</div>
+<div class="row">
+    <div class="col-lg-4">
+        <form action="{% url 'myadmin:updatenewsletter' id=newsletter.id%}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <label for="" class="text-danger">* Title will Not be Shown in User Page</label><br>
+                <label for="">Title</label>
+                {{form.title}}
+            </div>           
+            
+            <div class="mt-3">
+                <label for="" class="">Preferrable Image Dimension 5000px X 550px</label> <br>
+                {{form.imge}}
+            </div>
+            
+            <div class="float-right mt-2">
+                <input type="submit" name="submit" id="" value="upload" class="btn btn-primary">
+            </div>
+            
+        </form>
+    </div>
+    <div class="col-lg-4">
+        <img src="{{newsletter.imge.url}}" alt="" class="img-thumbnail mt-3">
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('id_title').className="form-control"
+</script>
+
+{% endblock %}
