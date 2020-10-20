@@ -11,8 +11,11 @@
       {{form.email}}
       {{form.password1}}
       {{form.password2}}
+      {% if form.eooros %}
+      <p class="text-dnager">Invalid Form</p>
+      {% endif %}
       <p class="mt-3">
-        Already have account? <a href="">
+        Already have account? <a href="{% url 'account:log_in' %}">
           Login Here
         </a>
       </p>
