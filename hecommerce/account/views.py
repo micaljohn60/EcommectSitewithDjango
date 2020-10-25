@@ -19,32 +19,37 @@ def signup_view(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():              
-            user = form.save(commit=False)
-            user.is_active = False
-            user.save()
-            # paht to view
-            # get domain we are on
-            # relative url to verfication
-            # encode uid
-            # token
-            uidb64 =urlsafe_base64_encode(force_bytes(user.pk))
-            domain = get_current_site(request).domain 
-            link =  reverse('account:activate',kwargs={
-                'uidb64':uidb64,'token':token_generator.make_token(user)})
-            activate_url = 'http://'+domain+link
-            email_subject = 'Activate your account'
-            email_body = "Hi" + user.username + "Please Use this link to verify your account\n" + activate_url
-            sent_to = form.cleaned_data.get('email')
-            email = EmailMessage(
-                email_subject,
-                email_body,
-                settings.EMAIL_HOST_USER,
-                [sent_to]                
-            )   
-            
-            email.send(fail_silently=False)
-            form.save()
-            return redirect('core:productlists')
+            input_email = form.cleaned_data.get('email')
+            user_mail = User.objects.filter(email=input_email)
+            if user_mail.exists():
+                messages.warning(request, "Email is already exist")
+            else:
+                user = form.save(commit=False)
+                user.is_active = False
+                user.save()
+                # paht to view
+                # get domain we are on
+                # relative url to verfication
+                # encode uid
+                # token
+                uidb64 =urlsafe_base64_encode(force_bytes(user.pk))
+                domain = get_current_site(request).domain 
+                link =  reverse('account:activate',kwargs={
+                    'uidb64':uidb64,'token':token_generator.make_token(user)})
+                activate_url = 'http://'+domain+link
+                email_subject = 'Activate your account'
+                email_body = "Hi" + user.username + "Please Use this link to verify your account\n" + activate_url
+                sent_to = form.cleaned_data.get('email')
+                email = EmailMessage(
+                    email_subject,
+                    email_body,
+                    settings.EMAIL_HOST_USER,
+                    [sent_to]                
+                )   
+                
+                email.send(fail_silently=False)
+                form.save()
+                return redirect('core:productlists')
     
     return render(request,'signup.html',{'form':form})
 
