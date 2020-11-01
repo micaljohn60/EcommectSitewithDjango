@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<div class="card mt-3 mb-3 text-center" style="width: 410px;margin: 0 auto;">
+<div class="card mt-5 mb-5 text-center" style="width: 410px;margin: 0 auto;">
   <h3 class="card-header text-center text-white info-color">Sign up</h3>
   <form action="{% url 'account:sign_up' %}" method="POST" class="text-center p-5 mb-3" style="color: #757575;">
     {% csrf_token %}

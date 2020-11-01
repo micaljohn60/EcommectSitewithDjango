@@ -1,33 +1,6 @@
-html,
-body,
-header,
-.carousel {
-  height: 60vh;
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
 
-@media (max-width: 740px) {
-
-  html,
-  body,
-  header,
-  .carousel {
-    height: 100vh;
-  }
-
-}
-
-@media (min-width: 800px) and (max-width: 850px) {
-
-  html,
-  body,
-  header,
-  .carousel {
-    height: 100vh;
-  }
-
-}
-
- .form-container{
+.form-container{
   width: 100%;
   height: 80%;
   margin-bottom: 200px;
@@ -71,5 +44,32 @@ header,
   border-radius: 10px;
   background-color: #afd1de;
 }
+
+h5{
+  color:black
+}
+
+
+/* Small Tablets */
+@media screen and (min-width:620px){
+
+}
+
+/* Large Tablet and Laptop  */
+@media screen and (min-width:960px){
+
+}
+
+/* Desktop  */
+@media screen and (min-width:1200px){
+.my-div{
+  height: 100%;
+}
+}
+
+
+
+
+
 
 

@@ -3,18 +3,15 @@
 {% block content %}
 
 <div class="card mt-5 mb-5 text-center " style="width: 410px;margin: 0 auto;">
-    <h3 class="card-header info-color white-text py-3 text-center">Log In</h3>
-    <form action="{% url 'account:log_in' %}" method="POST" class="text-center  p-5 mb-3"  style="color: #757575;">
+    <h3 class="card-header info-color white-text py-3 text-center">Auth Log In</h3>
+    <form action="{% url 'account:superuserlogin' %}" method="POST" class="text-center  p-5 mb-3"  style="color: #757575;">
         
         {% csrf_token %}    
         {{form.username}}
         {{form.password}}  
         {% if form.errors %}
         <p class="text-danger">Incorrect Password or user name</p>
-        {% endif %}
-        <p class="mt-3">Not a Member?<a href="{% url 'account:sign_up' %}">
-            Register Here
-       </a></p>          
+        {% endif %}      
         
         <input type="submit" value="Log In" class="btn btn-primary mt-2">
       

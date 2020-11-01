@@ -47,26 +47,51 @@
 
         <p class="lead font-weight-bold">Description</p>
 
-        <p>{{object.description}}</p>        
+        <p>{{object.description}}</p>       
+        
+        
+        {% if request.user.is_authenticated %} <!-- Check user is authenticated -->
+          {% if request.user.is_superuser %} <!-- Check Superuser -->
+            <button class="btn btn-danger btn-md my-0 p" type="submit">
+              <i class="fas fa-exclamation mr-1"></i>
+              You are an Admin         
+            </button>
 
-        {% if object.product_quantity == 0 %}
+          {% else %} <!-- Check product quantity -->
+            {% if object.product_quantity == 0 %}
+                  <button class="btn btn-danger btn-md my-0 p" type="submit">
+                    <i class="fas fa-exclamation mr-1"></i>
+                    Sorry This item is out of stock           
+                  </button>
+            
+            {% elif object.status == False %}
+                  <button class="btn btn-danger btn-md my-0 p" type="submit">
+                    <i class="fas fa-exclamation mr-1"></i>
+                    Sorry This item is Unavaliable         
+                  </button>
+            {% else %}            
+                  <a href="{{object.get_add_to_cart_url}}">
+                    <button class="btn btn-primary btn-md my-0 p" type="submit">Add to cart
+                      <i class="fas fa-shopping-cart ml-1"></i>
+                    </button>          
+                  </a>
+            {% endif %} <!-- Check product quantity -->
+
+          {% endif %}
+          
+
+
+          {% else %} <!-- Check user is authenticated -->
+
           <button class="btn btn-danger btn-md my-0 p" type="submit">
             <i class="fas fa-exclamation mr-1"></i>
-            Sorry This item is out of stock           
+            Please Log in to add item to cart           
           </button>
+
+        {% endif %} 
+          
+
         
-        {% elif object.status == False %}
-        <button class="btn btn-danger btn-md my-0 p" type="submit">
-          <i class="fas fa-exclamation mr-1"></i>
-          Sorry This item is Unavaliable         
-        </button>
-        {% else %}            
-            <a href="{{object.get_add_to_cart_url}}">
-              <button class="btn btn-primary btn-md my-0 p" type="submit">Add to cart
-                <i class="fas fa-shopping-cart ml-1"></i>
-              </button>          
-            </a>
-        {% endif %}
      
          
       </div>

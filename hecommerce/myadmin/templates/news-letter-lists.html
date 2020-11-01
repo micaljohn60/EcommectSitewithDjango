@@ -3,7 +3,7 @@
 {% block content %}
 <h1>New Letter List</h1>
 
-<div class="row">
+<div class="row" style="height:570px">
     {% for newletter in newsletters %}
     <div class="col-lg-4">        
         <a href="{% url 'myadmin:updatenewsletter' id=newletter.id %}" style="color: black;">
