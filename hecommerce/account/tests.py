@@ -14,9 +14,9 @@ class UrlTest(SimpleTestCase):
         url = reverse('account:log_in')
         self.assertEquals(resolve(url).func,login_view)   
         
-    # def test_Verification(self):
-    #     url = reverse('account:activate', args=['(?P<uidb64>[^/]+)','/(?P<token>[^/]+)$'])
-    #     self.assertEquals(resolve(url).func.view_class,VerificationView)
+    def test_Verification(self):
+        url = reverse('account:activate', args=['(?P<uidb64>[^/]+)','/(?P<token>[^/]+)$'])
+        self.assertEquals(resolve(url).func.view_class,VerificationView)
         
     def test_logout(self):
         url = reverse('account:log_out')
