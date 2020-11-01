@@ -4,6 +4,9 @@ from core.models import Item,Order,OrderItem,Payment,Notification,NewsLetter
 from django.views.generic import ListView, DetailView, View
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.core.mail import EmailMessage
+from django.contrib.auth.models import User
+from django.conf import settings
 from .import forms
 
 # Create your views here.
@@ -103,17 +106,40 @@ def pending_order_detail_view(request,slug):
 def pending_order_confirm(request,slug):
     order = Order.objects.filter(ref_code=slug,ordered=True,pending=True)
     for orde in order:
-        noti = Notification(user=orde.user,notification_title="Your order "+ slug +"has been confirmed")
+        noti = Notification(user=orde.user,notification_title="Your order "+ slug +" has been confirmed",success_fail=True)
+        username = User.objects.get(username=orde.user)
         noti.save()
+        email_subject = 'Yout order has confirmed'
+        email_body = "Hi" + username.username + "Your order " + slug + "has been confirmed"
+        sent_to = username.email
+        email = EmailMessage(
+            email_subject,
+            email_body,
+            settings.EMAIL_HOST_USER,
+            [sent_to]                
+        ) 
+        email.send(fail_silently=False)
     order.update(pending=False)
+    
     messages.info(request,slug + "has Confirmed")
     return redirect('myadmin:pendingorders')
 
 def pending_order_reject(request,slug):
     order = Order.objects.filter(ref_code=slug,ordered=True,pending=True)
     for orde in order:
-        noti = Notification(user=orde.user,notification_title="Your order "+ slug +"has been rejected dut to incomplete information")
+        noti = Notification(user=orde.user,notification_title="Your order "+ slug +" has been rejected dut to incomplete information",success_fail=False)
+        username = User.objects.get(username=orde.user)
         noti.save()
+        email_subject = 'Yout order has rejected'
+        email_body = "Hi" + username.username + "Your order " + slug + "has been rejected"
+        sent_to = username.email
+        email = EmailMessage(
+            email_subject,
+            email_body,
+            settings.EMAIL_HOST_USER,
+            [sent_to]                
+        ) 
+        email.send(fail_silently=False)
     order.delete()
     messages.warning(request,slug + "has Rejected")
     return redirect('myadmin:pendingorders')
@@ -152,7 +178,7 @@ class UpdateProduct(View):
         form = forms.UpdateForm(self.request.POST,self.request.FILES,instance=item)   
         if form.is_valid():
             form.save()
-            messages.info(request,item.title + "is updated")
+            messages.info(request,item.title + " is updated")
             return redirect("myadmin:updateproductlist")
         
         return render(self.request,'update-product-list.html')

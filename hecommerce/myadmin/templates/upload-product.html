@@ -91,41 +91,68 @@
           </form>
     </div>
 </div>
-<script>
-    
-    
+<script>    
 
     $(document).ready(function(){
+        //var extensions = ['jpg','jpeg'];
+        let extensions = new Map()
+        extensions.set('jpg','jpg');
+        extensions.set('jpeg','jpeg');
+        
         var _URL = window.URL;
         $("#inputGroupFile01").change(function (e) {
             if ((file = this.files[0])) {
                 img = new Image();                
                  img.onload = function () {
-                    if(img.width < 1383 && img.height < 1037){   
-                        document.getElementById("error-text1").innerHTML = 'Image Is Too Small. To Upload Please Change Image Dimension';  
-                        $('#error-text1').show('slow')                                            
-                        $('#my-button').hide('slow')
+                    var fileName = e.target.files[0].name;
+                    var fileType = fileName.substr((fileName.lastIndexOf('.')+1));
+                    console.log("This is " + fileType)
+                    if(extensions.has(fileType)){
+                        console.log("Yay")
+                        if(img.width < 1383 && img.height < 1037 && fileType === 'jpg' || fileType === 'jpeg' ){   
+                            document.getElementById("error-text1").innerHTML = 'Image Is Too Small. To Upload Please Change Image Dimension';  
+                            $('#error-text1').show('slow')                                            
+                            $('#my-button').hide('slow')
+                        }
+                        else if(img.width > 1385 && img.height > 103 && fileType === 'jpg' || fileType === 'jpeg'){
+                            document.getElementById("error-text1").innerHTML = 'Image Is Too Large. To Upload Please Change Image Dimension';  
+                            $('#error-text1').show('slow')                                            
+                            $('#my-button').hide('slow')
+                        }
+                        else{
+                            $('#error-text1').hide('slow')
+                            $('#my-button').show('slow')
+                        }
                     }
-                    else if(img.width > 1385 && img.height > 103){
-                        document.getElementById("error-text1").innerHTML = 'Image Is Too Large. To Upload Please Change Image Dimension';  
-                        $('#error-text1').show('slow')                                            
-                        $('#my-button').hide('slow')
+                    if(fileType == 'psd'){
+                        console.log("dfjdl" + fileType)
                     }
                     else{
-                        $('#error-text1').hide('slow')
-                        $('#my-button').show('slow')
+                        console.log('dfk;dfjlkdajfkd')
                     }
-
                  };
+
+                // $('input[type="file"]').change(function(e){
+                // var fileName = e.target.files[0].name;
+                // var type =fileName.substr((fileName.lastIndexOf('.') + 1));
+                // for(i=0; i< extensions.length;i++){
+                //   if  (extensions[i] == type){
+                //       console.log("You can upload jpg")
+                //   } else if(extensions[i] == type){
+                //       console.log("you can upload jpeg")
+                //   }
+                //   else{
+                //       console.log("No You can't upload this image")
+                //   }
+                // }
                 
+                // });
+                 
             }
             img.src = _URL.createObjectURL(file);
-        });
+        });        
         
-    })  
-
-    
-    
+    })      
     function checkValidation(){ 
              
         var price = document.getElementById('price').value;
@@ -144,6 +171,19 @@
             });
         }        
     }
+
+    const titleInput = document.querySelector('input[name=title]');
+    const slugInput = document.querySelector('input[name=slug]');
+
+    const slugify = (val) => {
+        return val.toString().toLowerCase().trim()
+        .replace(/&/g,'-and-')
+        .replace(/[\s\W-]+/g,'-')
+    };
+
+    titleInput.addEventListener('keyup',(e)=>{
+        slugInput.setAttribute('value',slugify(titleInput.value))
+    })
 </script>
 
 

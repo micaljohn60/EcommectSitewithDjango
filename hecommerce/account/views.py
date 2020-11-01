@@ -49,7 +49,7 @@ def signup_view(request):
                 
                 email.send(fail_silently=False)
                 form.save()
-                return redirect('core:productlists')
+                return render(request,'acc_activate_email.html')
     
     return render(request,'signup.html',{'form':form})
 
@@ -72,11 +72,28 @@ def login_view(request):
         form = AuthenticationForm(data=request.POST)        
         if form.is_valid():
             user = form.get_user()
-            login(request,user)
-            return redirect('core:productlists')
+            if user.is_superuser:
+                messages.warning(request,'Wrong User Name or password')
+            else:
+                login(request,user)
+                return redirect('core:productlists')
     else:
         form = AuthenticationForm
     return render(request,'login.html',{'form':form})
+
+def superuser_login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            if user.is_superuser:                
+                login(request,user)
+                return redirect('core:productlists')   
+            else:
+                 messages.warning(request,'Wrong User Name or password')
+    else:
+        form = AuthenticationForm
+    return render(request,'sup-login.html',{'form':form})
 
 def logout_view(request):
     if request.method == 'POST':
