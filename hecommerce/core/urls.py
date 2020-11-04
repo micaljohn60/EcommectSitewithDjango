@@ -9,7 +9,8 @@ from.views import(
     CheckOutView,
     order_snippet_view,
     veiw_ordered_items_lists,
-    notifications
+    notifications,
+    displayCategory
 )
 
 app_name="core"
@@ -24,6 +25,7 @@ urlpatterns = [
     path('remve-from-cart/<slug>/',remove_from_cart,name="remove-from-cart"),
     path('remove-single-item-from-cart/<slug>/',remove_single_item_from_cart,name="remove-single-item-from-cart"),    
     path('view-ordered-items/<slug>/',veiw_ordered_items_lists,name="vieworderedlists"),
+    path('category/<category>',displayCategory,name="display-category"),
     re_path(r'(?P<slug>[\w-]+)/$',ProductDetailView.as_view(),name="productdetail"),
     
 ]

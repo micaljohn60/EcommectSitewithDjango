@@ -239,3 +239,14 @@ def notifications(request):
     }
     notis.update(opened=True)
     return render(request,'notifications.html',context)
+
+def displayCategory(request,category):
+    
+    items = Item.objects.filter(category=(category))
+    if items.exists():
+        context = {
+            'items' : items
+        }
+        return render(request,'subcategory.html',context)
+    else:
+        return render(request,'subcategory.html',{'error':"No Data"})

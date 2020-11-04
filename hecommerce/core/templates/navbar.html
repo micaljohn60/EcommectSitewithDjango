@@ -39,9 +39,9 @@
               Categories
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Electronic</a>
-              <a class="dropdown-item" href="#">Shirt</a>
-              <a class="dropdown-item" href="#">Utility</a>
+              <a class="dropdown-item" href="{% url 'core:display-category' category='E'%}">Electronic</a>
+              <a class="dropdown-item" href="{% url 'core:display-category' category='S'%}">Shirt</a>
+              <a class="dropdown-item" href="{% url 'core:display-category' category='U'%}">Utility</a>
             </div>
           </li>
         {% endif %}        

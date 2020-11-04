@@ -1,0 +1,9 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+{{error}}
+<h1>This is {{items}}</h1>
+    {% for item in items %}
+        <h1>{{item.title}}</h1>
+    {% endfor %}
+{% endblock content %}
